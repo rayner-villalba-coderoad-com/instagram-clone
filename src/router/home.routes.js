@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import logo from '../assets/images/instagram.webp';
 import HomeScreen from '../screens/HomeScreen';
+import StoryScreen from '../screens/StoryScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -27,12 +28,12 @@ const HomeRoutes = () => (
           <Feather name="camera" size={25} color={'#000'} />
         ),
         headerTitle: () => (
-          <Image  source={logo} resizeMode="contain" style={{width: 135}} />
+          <Image  source={logo} resizeMode="contain" style={{width: 135, height: 50}} />
         ),
         headerRight: () => (
           <Ionicons name="paper-plane-outline" size={25} color={'#545454'} />
         )
-      }} />
+      }} /> 
   </HomeStack.Navigator>
 );
 
