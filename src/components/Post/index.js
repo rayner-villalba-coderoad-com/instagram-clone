@@ -7,9 +7,9 @@ import Footer from './components/Footer';
 
 const Post = ({ post }) => (
   <View>
-    <Header imageUri={ post.user.imageUri } name={ post.user.name } />
-    <Body  imageUri={ post.imageUri } />
-    <Footer likesCount={post.likesCount} caption={post.caption} postedAt={post.postedAt} />
+    <Header imageUri={ post.user.image } name={ post.user.name } />
+    <Body  imageUri={ post.image } />
+    <Footer likesCount={post.likes} caption={post.caption} postedAt={post.createdAt} />
   </View>
 );
 

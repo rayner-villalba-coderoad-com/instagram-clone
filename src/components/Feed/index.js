@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
+import { API, graphqlOperation } from 'aws-amplify';
 import Post from '../Post';
 import Stories from '../UserStoriesPreview';
+import { listPosts } from '../../graphql/queries';
 
 const data = [{
   id: 1,
@@ -35,13 +37,30 @@ const data = [{
     postedAt: '5 minutes ago'
 }];
 
-const Feed = () => (
-  <FlatList 
-    data={data}
-    keyExtractor={({id}) => id.toString()}
-    renderItem={({item}) => <Post post={item} />}
-    ListHeaderComponent={Stories}
-  />  
-);
+const Feed = () => {
+  const [posts, setPosts] =useState([]);
+  useEffect(()=> {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async() => {
+    try {
+      const postsData = await API.graphql(graphqlOperation(listPosts));
+      console.log(postsData.data.listPosts.items);
+      setPosts(postsData.data.listPosts.items);
+    } catch(e) {
+      console.log(e.message);
+    }
+  };
+
+  return (
+    <FlatList 
+      data={posts}
+      keyExtractor={({id}) => id.toString()}
+      renderItem={({item}) => <Post post={item} />}
+      ListHeaderComponent={Stories}
+    />  
+  );
+};
 
 export default Feed;
